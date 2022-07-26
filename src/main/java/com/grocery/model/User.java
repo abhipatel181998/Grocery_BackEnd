@@ -22,10 +22,13 @@ public class User {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "user_id")
-	private String userId;
+	private int userId;
 
 	@Column(nullable = false)
-	private String name;
+	private String firstName;
+	
+	@Column(nullable = false)
+	private String lastName;
 	
 	@Column(unique = true, nullable = false)
 	private String email;
@@ -42,8 +45,6 @@ public class User {
 	@Column (nullable = false, length = 10)
 	private long phone;
 	
+	@Column(nullable = true)
 	private String photo;
-	
-	@OneToMany(mappedBy = "user")
-	private List<Orders> orders;
 }
