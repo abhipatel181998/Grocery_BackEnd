@@ -20,7 +20,7 @@ import com.grocery.service.UserService;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("user")
 @Log4j2
 public class UserController {
 
@@ -30,7 +30,7 @@ public class UserController {
 	/**
 	 * @return all the users.
 	 */
-	@GetMapping("/")
+	@GetMapping("")
 	public ResponseEntity<?> getUsers() {
 		try {
 			log.info("Get All Users Accessed.");
