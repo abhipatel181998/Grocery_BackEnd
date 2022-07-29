@@ -34,10 +34,10 @@ public class UserController {
 	public ResponseEntity<?> getUsers() {
 		try {
 			log.info("Get All Users Accessed.");
-			return new ResponseEntity<>(userService.getAll(), HttpStatus.OK);
+			return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
 		} catch (Exception e) {
 			log.error(e);
-			return new ResponseEntity<>("Error occcured while updating user.", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Error occcured while getting users.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -48,7 +48,7 @@ public class UserController {
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getUserById(@PathVariable(name = "id", required = true) int userId) {
 		try {
-			Optional<User> user = userService.getById(userId);
+			Optional<User> user = userService.getUserById(userId);
 
 			if (user.isPresent()) {
 				log.info("User found for id: " + userId);
@@ -59,7 +59,7 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			log.error(e);
-			return new ResponseEntity<>("Error occcured while updating user.", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Error occcured while getting users.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
@@ -72,7 +72,7 @@ public class UserController {
 	@PostMapping("/add")
 	public ResponseEntity<?> addUser(@RequestBody User user) {
 		try {
-			var response = userService.add(user);
+			var response = userService.addUser(user);
 			log.info("User added :" + response);
 			return new ResponseEntity<>(response, HttpStatus.CREATED);
 		} catch (Exception e) {
@@ -94,7 +94,7 @@ public class UserController {
 			@PathVariable(name = "id", required = true) int userId) {
 
 		try {
-			var response = userService.update(user, userId);
+			var response = userService.updateUser(user, userId);
 			log.info("User updated: " + response);
 
 			return new ResponseEntity<>(response, HttpStatus.OK);
@@ -104,7 +104,7 @@ public class UserController {
 			return new ResponseEntity<>("User not found!", HttpStatus.NOT_FOUND);
 		} catch (Exception e) {
 			log.error(e);
-			return new ResponseEntity<>("Error occcured while updating user.", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Error occcured while deleting user.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}
@@ -119,7 +119,7 @@ public class UserController {
 	public ResponseEntity<?> deleteUser(@PathVariable(name = "id", required = true) int userId) {
 
 		try {
-			var response = userService.delete(userId);
+			var response = userService.deleteUser(userId);
 			log.info("User deleted with id: " + response);
 
 			if (response != null)
@@ -130,7 +130,7 @@ public class UserController {
 			}
 		} catch (Exception e) {
 			log.error(e);
-			return new ResponseEntity<>("Error occcured while updating user.", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Error occcured while DELETING user.", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 
 	}

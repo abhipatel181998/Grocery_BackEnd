@@ -14,20 +14,21 @@ public class UserService {
 
 	@Autowired
 	UserRepository userRepository;
-	
-	
+
 	/**
+	 * Get all the users.
 	 * @return List<User> list.
 	 */
-	public List<User> getAll(){
+	public List<User> getAllUsers() {
 		return (List<User>) userRepository.findAll();
 	}
-	
+
 	/**
+	 * Get user by user id.
 	 * @param userId
 	 * @return Optional<User> User object or null.
 	 */
-	public Optional<User> getById(int userId) {
+	public Optional<User> getUserById(int userId) {
 		return userRepository.findById(userId);
 	}
 
@@ -37,7 +38,7 @@ public class UserService {
 	 * @param user
 	 * @return saved User object
 	 */
-	public User add(User user) {
+	public User addUser(User user) {
 		return userRepository.save(user);
 	}
 
@@ -48,7 +49,7 @@ public class UserService {
 	 * @param userId
 	 * @return updated User object.
 	 */
-	public User update(User user, int userId) {
+	public User updateUser(User user, int userId) {
 		Optional<User> userData = userRepository.findById(userId);
 
 		if (userData.isPresent()) {
@@ -64,7 +65,7 @@ public class UserService {
 	 * @param userId
 	 * @return deleted User's id or null
 	 */
-	public Object delete(int userId) {
+	public Object deleteUser(int userId) {
 		Optional<User> userData = userRepository.findById(userId);
 
 		if (userData.isPresent()) {
