@@ -10,7 +10,7 @@ import com.grocery.model.Orders;
 import com.grocery.repository.OrdersRepository;
 
 @Service
-public class OrdersService {
+public class OrdersServiceImp {
 
 	@Autowired
 	OrdersRepository ordersRepository;
@@ -30,7 +30,7 @@ public class OrdersService {
 	 * @param orderId
 	 * @return Optional<Orders> object.
 	 */
-	public Optional<Orders> getOrderById(int orderId) {
+	public Optional<Orders> getOrderById(Long orderId) {
 		return ordersRepository.findById(orderId);
 	}
 
@@ -51,7 +51,7 @@ public class OrdersService {
 	 * @param orderId
 	 * @return updated Orders object.
 	 */
-	public Orders updateOrder(Orders order, int orderId) {
+	public Orders updateOrder(Orders order, Long orderId) {
 		Optional<Orders> orderData = ordersRepository.findById(orderId);
 
 		if (orderData.isPresent()) {
@@ -67,7 +67,7 @@ public class OrdersService {
 	 * @param orderId
 	 * @return deleted Order's id or null
 	 */
-	public Object deleteOrder(int orderId) {
+	public Object deleteOrder(Long orderId) {
 		Optional<Orders> orderData = ordersRepository.findById(orderId);
 
 		if (orderData.isPresent()) {

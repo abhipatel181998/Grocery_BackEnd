@@ -9,19 +9,26 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Item {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "item_id")
-	private int itemId;
+	private Long itemId;
+	
 	@Column(nullable = false, unique = true)
 	private String name;
+	
 	@Column(nullable = false)
 	private double price;
+	
 	private String photo;
 
 	private float discount;

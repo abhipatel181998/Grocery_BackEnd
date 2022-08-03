@@ -11,20 +11,24 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Orders {
 	
-	public enum status{
+	public static enum status{
 		NEW, PENDING, INPROGRESS, FINISHED
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "order_id")
-	private int orderId;
+	private Long orderId;
 	
 	@Column(nullable = false)
 	private String address;

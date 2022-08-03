@@ -10,7 +10,7 @@ import com.grocery.model.Wishlist;
 import com.grocery.repository.WishlistRepository;
 
 @Service
-public class WishlistService {
+public class WishlistServiceImp {
 
 	@Autowired
 	WishlistRepository wishlistRepository;
@@ -30,7 +30,7 @@ public class WishlistService {
 	 * @param wishlistId
 	 * @return Optional<Wishlist> object.
 	 */
-	public Optional<Wishlist> getWishlistById(int wishlistId) {
+	public Optional<Wishlist> getWishlistById(Long wishlistId) {
 		return wishlistRepository.findById(wishlistId);
 	}
 
@@ -51,7 +51,7 @@ public class WishlistService {
 	 * @param wishlistId
 	 * @return updated Wishlist object.
 	 */
-	public Wishlist updateWishlist(Wishlist wishlist, int wishlistId) {
+	public Wishlist updateWishlist(Wishlist wishlist, Long wishlistId) {
 		Optional<Wishlist> wishlistData = wishlistRepository.findById(wishlistId);
 
 		if (wishlistData.isPresent()) {
@@ -67,7 +67,7 @@ public class WishlistService {
 	 * @param wishlistId
 	 * @return deleted wishlist's id or null
 	 */
-	public Object deleteWishlist(int wishlistId) {
+	public Object deleteWishlist(Long wishlistId) {
 		Optional<Wishlist> wishlistData = wishlistRepository.findById(wishlistId);
 
 		if (wishlistData.isPresent()) {

@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.grocery.model.Wishlist;
-import com.grocery.service.WishlistService;
+import com.grocery.service.WishlistServiceImp;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -25,7 +25,7 @@ import lombok.extern.log4j.Log4j2;
 public class WishlistController {
 
 	@Autowired
-	WishlistService wishlistService;
+	WishlistServiceImp wishlistService;
 
 	/**
 	 * @return all the wishlists.
@@ -46,7 +46,7 @@ public class WishlistController {
 	 * @return Wishlist object found by wishlistId.
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getWishlistById(@PathVariable(name = "id", required = true) int wishlistId) {
+	public ResponseEntity<?> getWishlistById(@PathVariable(name = "id", required = true) Long wishlistId) {
 		try {
 			Optional<Wishlist> wishlist = wishlistService.getWishlistById(wishlistId);
 
@@ -91,7 +91,7 @@ public class WishlistController {
 	 */
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> updateUser(@RequestBody Wishlist wishlist,
-			@PathVariable(name = "id", required = true) int wishlistId) {
+			@PathVariable(name = "id", required = true) Long wishlistId) {
 
 		try {
 			var response = wishlistService.updateWishlist(wishlist, wishlistId);
@@ -116,7 +116,7 @@ public class WishlistController {
 	 * @return HttpStatus with with wishlist id or error message.
 	 */
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> deleteWishlist(@PathVariable(name = "id", required = true) int wishlistId) {
+	public ResponseEntity<?> deleteWishlist(@PathVariable(name = "id", required = true) Long wishlistId) {
 
 		try {
 			var response = wishlistService.deleteWishlist(wishlistId);
