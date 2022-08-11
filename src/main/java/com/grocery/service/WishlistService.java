@@ -18,7 +18,7 @@ public class WishlistService {
 	/**
 	 * Get all the wishlists.
 	 * 
-	 * @return (List<Wishlist> wishlists list.
+	 * @return List<Wishlist> wishlists list.
 	 */
 	public List<Wishlist> getAllWishlists() {
 		return (List<Wishlist>) wishlistRepository.findAll();
@@ -30,7 +30,7 @@ public class WishlistService {
 	 * @param wishlistId
 	 * @return Optional<Wishlist> object.
 	 */
-	public Optional<Wishlist> getWishlistById(int wishlistId) {
+	public Optional<Wishlist> getWishlistById(Long wishlistId) {
 		return wishlistRepository.findById(wishlistId);
 	}
 
@@ -51,7 +51,7 @@ public class WishlistService {
 	 * @param wishlistId
 	 * @return updated Wishlist object.
 	 */
-	public Wishlist updateWishlist(Wishlist wishlist, int wishlistId) {
+	public Wishlist updateWishlist(Wishlist wishlist, Long wishlistId) {
 		Optional<Wishlist> wishlistData = wishlistRepository.findById(wishlistId);
 
 		if (wishlistData.isPresent()) {
@@ -67,7 +67,7 @@ public class WishlistService {
 	 * @param wishlistId
 	 * @return deleted wishlist's id or null
 	 */
-	public Object deleteWishlist(int wishlistId) {
+	public Object deleteWishlist(Long wishlistId) {
 		Optional<Wishlist> wishlistData = wishlistRepository.findById(wishlistId);
 
 		if (wishlistData.isPresent()) {

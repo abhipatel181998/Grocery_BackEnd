@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.grocery.model.Orders;
 
 @Repository
-public interface OrdersRepository extends CrudRepository<Orders, Integer> {
+public interface OrdersRepository extends CrudRepository<Orders, Long> {
 
 }
