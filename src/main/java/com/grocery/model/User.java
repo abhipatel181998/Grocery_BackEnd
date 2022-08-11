@@ -1,21 +1,27 @@
 package com.grocery.model;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Collection;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.ManyToMany;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class User {
 	
-	public enum Gender{
+	public static enum Gender{
 		MALE, FEMELE
 	}
 	
@@ -39,8 +45,8 @@ public class User {
 	@Column(nullable = false)
 	private Gender gender;
 	
-	@Column (nullable = false)
-	private int isAdmin = 0;
+	@ManyToMany(fetch = FetchType.EAGER)
+    private Collection<Role> roles = new ArrayList<>();
 	
 	@Column (nullable = false, length = 10)
 	private long phone;

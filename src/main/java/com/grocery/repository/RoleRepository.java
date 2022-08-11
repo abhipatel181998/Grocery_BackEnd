@@ -3,10 +3,9 @@ package com.grocery.repository;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.grocery.model.User;
+import com.grocery.model.Role;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
-	User findByEmail(String email);
-
+public interface RoleRepository extends CrudRepository<Role, Long> {
+	Role findByName(String name);
 }
