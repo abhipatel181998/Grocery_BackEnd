@@ -20,7 +20,7 @@ import com.grocery.service.OrdersService;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("orders")
+@RequestMapping("/orders")
 @Log4j2
 public class OrdersController {
 
@@ -46,7 +46,7 @@ public class OrdersController {
 	 * @return orders object found by orderId.
 	 */
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getOrderById(@PathVariable(name = "id", required = true) int orderId) {
+	public ResponseEntity<?> getOrderById(@PathVariable(name = "id", required = true) Long orderId) {
 		try {
 			Optional<Orders> order = ordersService.getOrderById(orderId);
 
@@ -91,7 +91,7 @@ public class OrdersController {
 	 */
 	@PutMapping("/update/{id}")
 	public ResponseEntity<?> updateOrder(@RequestBody Orders orders,
-			@PathVariable(name = "id", required = true) int orderId) {
+			@PathVariable(name = "id", required = true) Long orderId) {
 
 		try {
 			var response = ordersService.updateOrder(orders, orderId);
@@ -116,7 +116,7 @@ public class OrdersController {
 	 * @return HttpStatus with with order id or error message.
 	 */
 	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> deleteOrder(@PathVariable(name = "id", required = true) int orderId) {
+	public ResponseEntity<?> deleteOrder(@PathVariable(name = "id", required = true) Long orderId) {
 
 		try {
 			var response = ordersService.deleteOrder(orderId);

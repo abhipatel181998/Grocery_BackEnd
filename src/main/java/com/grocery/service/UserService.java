@@ -19,4 +19,10 @@ public interface UserService {
 	Optional<User> getUserById(Long userId);
 
 	List<User> getAllUsers();
+	
+	User updateUser(User user, Long userId);
+	
+	Object deleteUser(Long userId);
+	
+	User getUserByEmail(String email);
 }
