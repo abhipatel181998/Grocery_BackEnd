@@ -24,7 +24,7 @@ public class Orders {
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "order_id")
-	private int orderId;
+	private Long orderId;
 	
 	@Column(nullable = false)
 	private String address;

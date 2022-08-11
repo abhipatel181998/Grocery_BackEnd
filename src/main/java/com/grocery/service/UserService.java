@@ -28,7 +28,7 @@ public class UserService {
 	 * @param userId
 	 * @return Optional<User> User object or null.
 	 */
-	public Optional<User> getUserById(int userId) {
+	public Optional<User> getUserById(Long userId) {
 		return userRepository.findById(userId);
 	}
 
@@ -49,7 +49,7 @@ public class UserService {
 	 * @param userId
 	 * @return updated User object.
 	 */
-	public User updateUser(User user, int userId) {
+	public User updateUser(User user, Long userId) {
 		Optional<User> userData = userRepository.findById(userId);
 
 		if (userData.isPresent()) {
@@ -65,7 +65,7 @@ public class UserService {
 	 * @param userId
 	 * @return deleted User's id or null
 	 */
-	public Object deleteUser(int userId) {
+	public Object deleteUser(Long userId) {
 		Optional<User> userData = userRepository.findById(userId);
 
 		if (userData.isPresent()) {

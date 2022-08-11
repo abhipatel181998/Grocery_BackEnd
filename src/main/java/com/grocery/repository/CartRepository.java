@@ -6,6 +6,6 @@ import org.springframework.stereotype.Repository;
 import com.grocery.model.Cart;
 
 @Repository
-public interface CartRepository extends CrudRepository<Cart, Integer>{
+public interface CartRepository extends CrudRepository<Cart, Long>{
 
 }
