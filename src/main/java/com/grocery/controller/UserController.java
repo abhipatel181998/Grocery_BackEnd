@@ -35,7 +35,7 @@ import com.auth0.jwt.interfaces.JWTVerifier;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.grocery.model.Role;
 import com.grocery.model.User;
-import com.grocery.service.UserService;
+import com.grocery.service.UserServiceImp;
 
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -48,7 +48,7 @@ import lombok.extern.log4j.Log4j2;
 public class UserController {
 
 	@Autowired
-	private final UserService userService;
+	private final UserServiceImp userService;
 
 	/**
 	 * @return all the users.

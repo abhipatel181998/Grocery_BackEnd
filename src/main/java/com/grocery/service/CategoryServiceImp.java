@@ -28,7 +28,7 @@ public class CategoryServiceImp implements CategoryService {
 	 * Get orders by category id.
 	 * 
 	 * @param categoryId
-	 * @return Optional<Category> object or null
+	 * @return Optional<Category> object.
 	 */
 	public Optional<Category> getCategoryById(Long categoryId) {
 		return categoryRepository.findById(categoryId);

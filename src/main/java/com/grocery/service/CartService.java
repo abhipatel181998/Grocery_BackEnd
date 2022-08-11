@@ -9,13 +9,13 @@ import com.grocery.model.Cart;
 
 @Service
 public interface CartService {
-	public List<Cart> getAllCartItem();
+	public List<Cart> getAllCart();
 
-	public Optional<Cart> getCartByUserId(Long userId);
+	public Optional<Cart> getCartById(Long cartId);
 
-	public Cart addToCart(Cart cart);
-	
-	public Cart updateCart(Cart cart, int cartId);
-	
-	public Object deleteCartItem(int cartId);
+	public Cart addCart(Cart cart);
+
+	public Cart updateCart(Cart cart, Long cartId);
+
+	public Object deleteCart(Long cartId);
 }

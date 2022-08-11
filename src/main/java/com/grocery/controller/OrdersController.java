@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.grocery.model.Orders;
-import com.grocery.service.OrdersService;
+import com.grocery.service.OrdersServiceImp;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -25,7 +25,7 @@ import lombok.extern.log4j.Log4j2;
 public class OrdersController {
 
 	@Autowired
-	OrdersService ordersService;
+	OrdersServiceImp ordersService;
 
 	/**
 	 * @return all the orders.

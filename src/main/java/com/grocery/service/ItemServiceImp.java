@@ -10,14 +10,15 @@ import com.grocery.model.Item;
 import com.grocery.repository.ItemRepository;
 
 @Component
-public class ItemServiceImp {
+public class ItemServiceImp implements ItemService {
+
 	@Autowired
 	ItemRepository itemRepository;
 
 	/**
-	 * Get all the items.
+	 * Get all the item.
 	 * 
-	 * @return List<Item> Item list.
+	 * @return (List<Item> Item list.
 	 */
 	public List<Item> getAllItem() {
 		return (List<Item>) itemRepository.findAll();
@@ -27,7 +28,7 @@ public class ItemServiceImp {
 	 * Get item by item id.
 	 * 
 	 * @param itemId
-	 * @return Optional<Item> object or null
+	 * @return Optional<Item> object.
 	 */
 	public Optional<Item> getItemById(Long itemId) {
 		return itemRepository.findById(itemId);
@@ -37,7 +38,7 @@ public class ItemServiceImp {
 	 * Create Item.
 	 * 
 	 * @param item
-	 * @return created Item object.
+	 * @return saved Item object.
 	 */
 	public Item addItem(Item item) {
 		return itemRepository.save(item);

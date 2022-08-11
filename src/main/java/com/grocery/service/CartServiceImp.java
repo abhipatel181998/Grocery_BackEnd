@@ -10,38 +10,44 @@ import com.grocery.model.Cart;
 import com.grocery.repository.CartRepository;
 
 @Component
-public class CartServiceImp {
+public class CartServiceImp implements CartService {
 
 	@Autowired
-	CartRepository cartRepository; 
-	
+	CartRepository cartRepository;
+
 	/**
+	 * Get all the cart.
 	 * 
-	 * @return 
+	 * @return (List<Cart> Cart list.
 	 */
-	public List<Cart> getAllCartItem(){
+	public List<Cart> getAllCart() {
 		return (List<Cart>) cartRepository.findAll();
-	}
-	
-	
-	public Optional<Cart> getCartByUserId(Long userId) {
-		return cartRepository.findById(userId);
 	}
 
 	/**
-	 * Create new cart.
+	 * Get Cart by cart id.
 	 * 
-	 * @param user
-	 * @return saved User object
+	 * @param cartId
+	 * @return Optional<Cart> object.
 	 */
-	public Cart addToCart(Cart cart) {
+	public Optional<Cart> getCartById(Long cartId) {
+		return cartRepository.findById(cartId);
+	}
+
+	/**
+	 * Save Cart.
+	 * 
+	 * @param cart
+	 * @return saved Cart object.
+	 */
+	public Cart addCart(Cart cart) {
 		return cartRepository.save(cart);
 	}
 
 	/**
 	 * Update cart by id.
 	 * 
-	 * @param cart
+	 * @param cart   Object of Cart
 	 * @param cartId
 	 * @return updated Cart object.
 	 */
@@ -61,15 +67,15 @@ public class CartServiceImp {
 	 * @param cartId
 	 * @return deleted Cart id or null
 	 */
-	public Object deleteCartItem(Long cartId) {
-		Optional<Cart> cart = cartRepository.findById(cartId);
+	public Object deleteCart(Long cartId) {
+		Optional<Cart> cartData = cartRepository.findById(cartId);
 
-		if (cart.isPresent()) {
+		if (cartData.isPresent()) {
 			cartRepository.deleteById(cartId);
 			return cartId;
 		}
 
 		return null;
 	}
-	
+
 }

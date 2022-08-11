@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.grocery.model.Wishlist;
-import com.grocery.service.WishlistService;
+import com.grocery.service.WishlistServiceImp;
 
 import lombok.extern.log4j.Log4j2;
 
@@ -25,7 +25,7 @@ import lombok.extern.log4j.Log4j2;
 public class WishlistController {
 
 	@Autowired
-	WishlistService wishlistService;
+	WishlistServiceImp wishlistService;
 
 	/**
 	 * @return all the wishlists.
