@@ -19,4 +19,6 @@ public interface UserService {
 	Optional<User> getUserById(Long userId);
 
 	List<User> getAllUsers();
+	
+	boolean isUserExistForRole(String role);
 }

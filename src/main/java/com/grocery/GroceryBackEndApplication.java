@@ -11,6 +11,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import com.grocery.model.Role;
 import com.grocery.model.User;
+import com.grocery.repository.RoleRepository;
 import com.grocery.service.UserService;
 
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
@@ -23,22 +24,33 @@ public class GroceryBackEndApplication {
 		SpringApplication.run(GroceryBackEndApplication.class, args);
 	}
 
-	@Bean	
-	CommandLineRunner runner(UserService userService) {
+	@Bean
+	CommandLineRunner runner(UserService userService, RoleRepository roleRepository) {
 		return args -> {
-			userService.saveRole(new Role(null, "ROLE_USER"));
-			userService.saveRole(new Role(null, "ROLE_ADMIN"));
 
-			userService.saveUser(new User(null, "Admin", "Admin", "admin@admin.com", "admin1234", User.Gender.MALE,
-					new ArrayList<>(), 1234567890, null));
-			userService.saveUser(new User(null, "Admin", "User", "admin@user.com", "admin1234", User.Gender.MALE,
-					new ArrayList<>(), 1234567899, null));
-			
-			userService.addRoleToUser("admin@admin.com", "ROLE_ADMIN");
-			userService.addRoleToUser("admin@user.com", "ROLE_USER");
+			if (roleRepository.findByName("ROLE_USER") == null)
+				userService.saveRole(new Role(null, "ROLE_USER"));
+
+			if (roleRepository.findByName("ROLE_ADMIN") == null)
+				userService.saveRole(new Role(null, "ROLE_ADMIN"));
+
+			if (!userService.isUserExistForRole("ROLE_ADMIN")) {
+				userService.saveUser(new User(null, "Admin", "Admin", "admin@admin.com", "admin1234", User.Gender.MALE,
+						new ArrayList<>(), 1234567890, null));
+
+				userService.addRoleToUser("admin@admin.com", "ROLE_ADMIN");
+			}
+
+			if (!userService.isUserExistForRole("ROLE_USER")) {
+				userService.saveUser(new User(null, "Admin", "User", "admin@user.com", "admin1234", User.Gender.MALE,
+						new ArrayList<>(), 1234567899, null));
+
+				userService.addRoleToUser("admin@user.com", "ROLE_USER");
+			}
+
 		};
 	}
-	
+
 	@Bean
 	PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();

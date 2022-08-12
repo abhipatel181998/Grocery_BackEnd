@@ -145,4 +145,15 @@ public class UserServiceImp implements UserService, UserDetailsService {
 		user.getRoles().add(role);
 	}
 
+	@Override
+	public boolean isUserExistForRole(String roleName) {
+		for (User user : userRepository.findAll()) {
+			for (Role role : user.getRoles()) {
+				if (role.getName().equals(roleName)) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
 }
