@@ -15,5 +15,5 @@ public interface WishlistService {
 
 	public Wishlist addWishlist(Wishlist wishlist);
 
-	public Object deleteWishlist(Long wishlistId);
+	public Object deleteWishlist(Long wishlistId, Long itemId);
 }

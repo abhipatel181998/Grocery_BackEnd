@@ -17,10 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.grocery.model.Wishlist;
 import com.grocery.service.WishlistServiceImp;
 
+import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/wishlist")
+@RequestMapping("/api")
 @Log4j2
 public class WishlistController {
 
@@ -30,7 +31,7 @@ public class WishlistController {
 	/**
 	 * @return all the wishlists.
 	 */
-	@GetMapping("")
+	@GetMapping("/wishlist")
 	public ResponseEntity<?> getWishlists() {
 		try {
 			log.info("Get All Wishlists Accessed.");
@@ -45,7 +46,7 @@ public class WishlistController {
 	 * @param wishlistId
 	 * @return Wishlist object found by wishlistId.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/wishlist/{id}")
 	public ResponseEntity<?> getWishlistById(@PathVariable(name = "id", required = true) Long wishlistId) {
 		try {
 			Optional<Wishlist> wishlist = wishlistService.getWishlistById(wishlistId);
@@ -69,7 +70,7 @@ public class WishlistController {
 	 * @param user
 	 * @return HttpStatus with with user object or error message.
 	 */
-	@PostMapping("/add")
+	@PostMapping("/wishlist")
 	public ResponseEntity<?> addWishlist(@RequestBody Wishlist wishlist) {
 		try {
 			var response = wishlistService.addWishlist(wishlist);
@@ -82,41 +83,15 @@ public class WishlistController {
 
 	}
 
-	/**
-	 * Update wishlist in the database.
-	 * 
-	 * @param wishlist
-	 * @param wishlistId
-	 * @return HttpStatus with with wishlist object or error message.
-	 */
-	@PutMapping("/update/{id}")
-	public ResponseEntity<?> updateWishlist(@RequestBody Wishlist wishlist,
-			@PathVariable(name = "id", required = true) Long wishlistId) {
-
-		try {
-			var response = wishlistService.updateWishlist(wishlist, wishlistId);
-			log.info("Wishlist updated: " + response);
-
-			return new ResponseEntity<>(response, HttpStatus.OK);
-
-		} catch (NullPointerException ne) {
-			log.error("Wishlist not found for id: " + wishlistId);
-			return new ResponseEntity<>("Wishlist not found!", HttpStatus.NOT_FOUND);
-		} catch (Exception e) {
-			log.error(e);
-			return new ResponseEntity<>("Error occcured while updating wishlist.", HttpStatus.INTERNAL_SERVER_ERROR);
-		}
-
-	}
 
 	/**
-	 * Update wishlist in the database.
+	 * Delete item from wishlist in the database.
 	 * 
 	 * @param wishlistId
 	 * @return HttpStatus with with wishlist id or error message.
 	 */
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<?> deleteWishlist(@PathVariable(name = "id", required = true) Long wishlistId) {
+	@DeleteMapping("/wishlist")
+	public ResponseEntity<?> deleteWishlist(@RequestBody DeleteWishlist deleteWishlist) {
 
 		try {
 			var response = wishlistService.deleteWishlist(wishlistId);
@@ -134,4 +109,10 @@ public class WishlistController {
 		}
 
 	}
+}
+
+@Data
+class DeleteWishlist{
+	Long wishlistId;
+	Long itemId;
 }

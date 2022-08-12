@@ -56,7 +56,7 @@ public class WishlistServiceImp implements WishlistService {
 	 * @param wishlistId
 	 * @return deleted wishlist's id or null
 	 */
-	public Object deleteWishlist(Long wishlistId) {
+	public Object deleteWishlist(Long wishlistId, Long itemId ) {
 		Optional<Wishlist> wishlistData = wishlistRepository.findById(wishlistId);
 
 		if (wishlistData.isPresent()) {
