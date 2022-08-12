@@ -41,25 +41,14 @@ public class WishlistServiceImp implements WishlistService {
 	 * @return saved Wishlist object.
 	 */
 	public Wishlist addWishlist(Wishlist wishlist) {
+		Optional<Wishlist> wishlistData = wishlistRepository.findByUser(wishlist.getUser());
+		if(wishlistData.isPresent()) {
+			(wishlistData.get().getItem()).add(wishlist.getItem().get(0));
+			return wishlistRepository.save(wishlistData.get());
+		}
 		return wishlistRepository.save(wishlist);
 	}
 
-	/**
-	 * Update wishlist by id.
-	 * 
-	 * @param wishlist   Object
-	 * @param wishlistId
-	 * @return updated Wishlist object.
-	 */
-	public Wishlist updateWishlist(Wishlist wishlist, Long wishlistId) {
-		Optional<Wishlist> wishlistData = wishlistRepository.findById(wishlistId);
-
-		if (wishlistData.isPresent()) {
-			return wishlistRepository.save(wishlist);
-		}
-
-		return null;
-	}
 
 	/**
 	 * Delete wishlist by id.

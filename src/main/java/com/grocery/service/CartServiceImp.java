@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.grocery.model.Cart;
+import com.grocery.model.Item;
 import com.grocery.repository.CartRepository;
 
 @Component
@@ -41,8 +42,15 @@ public class CartServiceImp implements CartService {
 	 * @return saved Cart object.
 	 */
 	public Cart addCart(Cart cart) {
-		if(cartRepository.findByUser(cart.getUser()) != null) {
-			Optional<Cart> cartData = cartRepository.findByUser(cart.getUser());
+		if(cartRepository.findByUser(cart.getUser()).isPresent()) {
+			Cart cartData = cartRepository.findByUser(cart.getUser()).get();
+			
+			for (Item item : cartData.getItems()) {
+				if(item.getItemId() == cart.getItems().get(0).getItemId()) {
+					cart.setQuantity(0);
+				}
+			}
+			return null;
 		}
 		return cartRepository.save(cart);
 	}
