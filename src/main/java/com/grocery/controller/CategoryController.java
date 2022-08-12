@@ -20,7 +20,7 @@ import com.grocery.service.CategoryService;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/category")
+@RequestMapping("/api")
 @Log4j2
 public class CategoryController {
 	@Autowired
@@ -29,7 +29,7 @@ public class CategoryController {
 	/**
 	 * @return all the categories.
 	 */
-	@GetMapping("")
+	@GetMapping("/category")
 	public ResponseEntity<?> getCategory() {
 		try {
 			log.info("Get All Categories Accessed.");
@@ -44,14 +44,14 @@ public class CategoryController {
 	 * @param categoryId
 	 * @return Category object found by categoryId.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/category/{id}")
 	public ResponseEntity<?> getCategoryById(@PathVariable(name = "id", required = true) Long categoryId) {
 		try {
 			Optional<Category> category = categoryService.getCategoryById(categoryId);
 
 			if (category.isPresent()) {
 				log.info("Category found for id: " + categoryId);
-				return new ResponseEntity<>(category, HttpStatus.FOUND);
+				return new ResponseEntity<>(category, HttpStatus.OK);
 			} else {
 				log.error("Category not found for id: " + categoryId);
 				return new ResponseEntity<>("Category not found!", HttpStatus.NOT_FOUND);
@@ -68,7 +68,7 @@ public class CategoryController {
 	 * @param category
 	 * @return HttpStatus with with category object or error message.
 	 */
-	@PostMapping("/add")
+	@PostMapping("/category")
 	public ResponseEntity<?> addCategory(@RequestBody Category category) {
 		try {
 			var response = categoryService.addCategory(category);
@@ -88,7 +88,7 @@ public class CategoryController {
 	 * @param categoryId
 	 * @return HttpStatus with with category object or error message.
 	 */
-	@PutMapping("/update/{id}")
+	@PutMapping("/category/{id}")
 	public ResponseEntity<?> updatecategory(@RequestBody Category category,
 			@PathVariable(name = "id", required = true) Long categoryId) {
 
@@ -114,7 +114,7 @@ public class CategoryController {
 	 * @param categoryId
 	 * @return HttpStatus with with category id or error message.
 	 */
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/category/{id}")
 	public ResponseEntity<?> deleteCategory(@PathVariable(name = "id", required = true) Long categoryId) {
 
 		try {

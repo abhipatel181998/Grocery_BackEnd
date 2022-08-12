@@ -20,7 +20,7 @@ import com.grocery.service.ItemService;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/item")
+@RequestMapping("/api")
 @Log4j2
 public class ItemController {
 	@Autowired
@@ -29,7 +29,7 @@ public class ItemController {
 	/**
 	 * @return all the items.
 	 */
-	@GetMapping("")
+	@GetMapping("/item")
 	public ResponseEntity<?> getItems() {
 		try {
 			log.info("Get All Items Accessed.");
@@ -44,7 +44,7 @@ public class ItemController {
 	 * @param itemId
 	 * @return Item object found by itemId.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/item/{id}")
 	public ResponseEntity<?> getItemById(@PathVariable(name = "id", required = true) Long itemId) {
 		try {
 			Optional<Item> item = itemService.getItemById(itemId);
@@ -68,7 +68,7 @@ public class ItemController {
 	 * @param item
 	 * @return HttpStatus with with item object or error message.
 	 */
-	@PostMapping("/add")
+	@PostMapping("/item")
 	public ResponseEntity<?> addItem(@RequestBody Item item) {
 		try {
 			var response = itemService.addItem(item);
@@ -88,7 +88,7 @@ public class ItemController {
 	 * @param itemId
 	 * @return HttpStatus with with item object or error message.
 	 */
-	@PutMapping("/update/{id}")
+	@PutMapping("/item/{id}")
 	public ResponseEntity<?> updateItem(@RequestBody Item item,
 			@PathVariable(name = "id", required = true) Long itemId) {
 
@@ -114,7 +114,7 @@ public class ItemController {
 	 * @param itemId
 	 * @return HttpStatus with with item id or error message.
 	 */
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/item/{id}")
 	public ResponseEntity<?> deleteItem(@PathVariable(name = "id", required = true) Long itemId) {
 
 		try {

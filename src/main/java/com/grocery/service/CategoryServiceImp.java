@@ -55,6 +55,7 @@ public class CategoryServiceImp implements CategoryService {
 		Optional<Category> categoryData = categoryRepository.findById(categoryId);
 
 		if (categoryData.isPresent()) {
+			category.setCategoryId(categoryId);
 			return categoryRepository.save(category);
 		}
 

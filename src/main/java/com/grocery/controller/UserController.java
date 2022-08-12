@@ -92,7 +92,7 @@ public class UserController {
 	 * @param user
 	 * @return HttpStatus with with user object or error message.
 	 */
-	@PostMapping("/user/save")
+	@PostMapping("/user")
 	public ResponseEntity<?> addUser(@RequestBody User user) {
 		try {
 			var response = userService.saveUser(user);
@@ -114,7 +114,7 @@ public class UserController {
 	 * @param userId
 	 * @return HttpStatus with with user object or error message.
 	 */
-	@PutMapping("user/update/{id}")
+	@PutMapping("user/{id}")
 	public ResponseEntity<?> updateUser(@RequestBody User user,
 			@PathVariable(name = "id", required = true) Long userId) {
 
@@ -140,7 +140,7 @@ public class UserController {
 	 * @param userId
 	 * @return HttpStatus with with user id or error message.
 	 */
-	@DeleteMapping("/user/delete/{id}")
+	@DeleteMapping("/user/{id}")
 	public ResponseEntity<?> deleteUser(@PathVariable(name = "id", required = true) Long userId) {
 
 		try {
