@@ -20,7 +20,7 @@ import com.grocery.service.OrdersServiceImp;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/orders")
+@RequestMapping("/api")
 @Log4j2
 public class OrdersController {
 
@@ -30,7 +30,7 @@ public class OrdersController {
 	/**
 	 * @return all the orders.
 	 */
-	@GetMapping("")
+	@GetMapping("/order")
 	public ResponseEntity<?> getOrders() {
 		try {
 			log.info("Get All Orders Accessed.");
@@ -45,7 +45,7 @@ public class OrdersController {
 	 * @param orderId
 	 * @return orders object found by orderId.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/order/{id}")
 	public ResponseEntity<?> getOrderById(@PathVariable(name = "id", required = true) Long orderId) {
 		try {
 			Optional<Orders> order = ordersService.getOrderById(orderId);
@@ -69,7 +69,7 @@ public class OrdersController {
 	 * @param orders
 	 * @return HttpStatus with with orders object or error message.
 	 */
-	@PostMapping("/add")
+	@PostMapping("/order/add")
 	public ResponseEntity<?> addOrder(@RequestBody Orders orders) {
 		try {
 			var response = ordersService.addOrder(orders);
@@ -89,7 +89,7 @@ public class OrdersController {
 	 * @param orderId
 	 * @return HttpStatus with with order object or error message.
 	 */
-	@PutMapping("/update/{id}")
+	@PutMapping("/order/{id}")
 	public ResponseEntity<?> updateOrder(@RequestBody Orders orders,
 			@PathVariable(name = "id", required = true) Long orderId) {
 
@@ -115,7 +115,7 @@ public class OrdersController {
 	 * @param orderId
 	 * @return HttpStatus with with order id or error message.
 	 */
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/order/{id}")
 	public ResponseEntity<?> deleteOrder(@PathVariable(name = "id", required = true) Long orderId) {
 
 		try {

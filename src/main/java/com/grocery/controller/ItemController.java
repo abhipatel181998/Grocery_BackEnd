@@ -51,7 +51,7 @@ public class ItemController {
 
 			if (item.isPresent()) {
 				log.info("Item found for id: " + itemId);
-				return new ResponseEntity<>(item, HttpStatus.FOUND);
+				return new ResponseEntity<>(item, HttpStatus.OK);
 			} else {
 				log.error("Item not found for id: " + itemId);
 				return new ResponseEntity<>("Item not found!", HttpStatus.NOT_FOUND);

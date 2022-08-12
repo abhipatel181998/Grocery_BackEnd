@@ -43,7 +43,7 @@ public class Item {
 
 	private String description;
 
-	@ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.MERGE)
+	@ManyToOne
 	private Category category;
 
 }

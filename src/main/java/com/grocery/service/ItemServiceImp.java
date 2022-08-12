@@ -55,6 +55,7 @@ public class ItemServiceImp implements ItemService {
 		Optional<Item> itemData = itemRepository.findById(itemId);
 
 		if (itemData.isPresent()) {
+			item.setItemId(itemId);
 			return itemRepository.save(item);
 		}
 
