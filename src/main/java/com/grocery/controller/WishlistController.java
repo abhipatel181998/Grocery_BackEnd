@@ -9,13 +9,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.grocery.model.Wishlist;
-import com.grocery.service.WishlistServiceImp;
+import com.grocery.service.WishlistService;
 
 import lombok.Data;
 import lombok.extern.log4j.Log4j2;
@@ -26,7 +25,7 @@ import lombok.extern.log4j.Log4j2;
 public class WishlistController {
 
 	@Autowired
-	WishlistServiceImp wishlistService;
+	WishlistService wishlistService;
 
 	/**
 	 * @return all the wishlists.
@@ -64,6 +63,29 @@ public class WishlistController {
 		}
 	}
 
+	/**
+	 * @param userEmail
+	 * @return Wishlist object found by userEmail.
+	 */
+	@GetMapping("/wishlist/{email}")
+	public ResponseEntity<?> getWishlistByUser(@PathVariable(name = "email", required = true) String userEmail) {
+		try {
+			Optional<Wishlist> wishlist = wishlistService.getWishlistUserEmail(userEmail);
+
+			if (wishlist.isPresent()) {
+				log.info("Wishlist found for user: " + userEmail);
+				return new ResponseEntity<>(wishlist, HttpStatus.FOUND);
+			} else {
+				log.error("Whishlist not found for user: " + userEmail);
+				return new ResponseEntity<>("Wishlist not found!", HttpStatus.NOT_FOUND);
+			}
+		} catch (Exception e) {
+			log.error(e);
+			return new ResponseEntity<>("Error occcured while getting wishlist.", HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+	
+	
 	/**
 	 * Add new wishlist in the database.
 	 * 
