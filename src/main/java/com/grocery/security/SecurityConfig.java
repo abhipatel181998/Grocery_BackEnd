@@ -41,14 +41,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(authenticationManagerBean(), secret);
-		
+		CustomAuthenticationFilter customAuthenticationFilter = new CustomAuthenticationFilter(
+				authenticationManagerBean(), secret);
+
 		customAuthenticationFilter.setFilterProcessesUrl("/api/login");
-		
+
 		http.csrf().disable();
 		http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/login").permitAll();
-		http.authorizeRequests().antMatchers(HttpMethod.GET, "/error", "/api/refreshtoken/**", "/v3/api-docs", "/swagger-ui/**", "/swagger-resources/**").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.POST, "/api/login", "/api/user/save").permitAll();
+		http.authorizeRequests().antMatchers(HttpMethod.GET, "/error", "/api/refreshtoken/**", "/v3/api-docs",
+				"/swagger-ui/**", "/swagger-resources/**").permitAll();
 		http.authorizeRequests().antMatchers("/api/user/**").hasAnyAuthority("ROLE_USER");
 		http.authorizeRequests().anyRequest().authenticated();
 		http.addFilter(customAuthenticationFilter);

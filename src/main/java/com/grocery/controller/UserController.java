@@ -42,7 +42,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api")
 @Log4j2
 @RequiredArgsConstructor
 public class UserController {
@@ -96,6 +96,7 @@ public class UserController {
 	public ResponseEntity<?> addUser(@RequestBody User user) {
 		try {
 			var response = userService.saveUser(user);
+			userService.addRoleToUser(user.getEmail(), "ROLE_USER");
 			log.info("User added :" + response);
 			URI uri = URI
 					.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
