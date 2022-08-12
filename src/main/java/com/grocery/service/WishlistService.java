@@ -16,4 +16,6 @@ public interface WishlistService {
 	public Wishlist addWishlist(Wishlist wishlist);
 
 	public Object deleteWishlist(Long wishlistId, Long itemId);
+
+	public Optional<Wishlist> getWishlistUserEmail(String userEmail);
 }
