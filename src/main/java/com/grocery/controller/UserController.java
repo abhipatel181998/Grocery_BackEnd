@@ -94,12 +94,13 @@ public class UserController {
 	 */
 	@PostMapping("/user")
 	public ResponseEntity<?> addUser(@RequestBody User user) {
+		System.out.println(user);
 		try {
 			var response = userService.saveUser(user);
 			userService.addRoleToUser(user.getEmail(), "ROLE_USER");
 			log.info("User added :" + response);
 			URI uri = URI
-					.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user/save").toUriString());
+					.create(ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/user").toUriString());
 			return ResponseEntity.created(uri).body(response);
 		} catch (Exception e) {
 			log.error(e);
