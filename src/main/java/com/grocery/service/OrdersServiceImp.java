@@ -9,6 +9,11 @@ import org.springframework.stereotype.Component;
 import com.grocery.model.Orders;
 import com.grocery.repository.OrdersRepository;
 
+import static com.grocery.model.Orders.status.NEW;
+import static com.grocery.model.Orders.status.APPROVED;
+import static com.grocery.model.Orders.status.FULLFILLED;
+import static com.grocery.model.Orders.status.REJECTED;;
+
 @Component
 public class OrdersServiceImp implements OrderService {
 
@@ -75,6 +80,29 @@ public class OrdersServiceImp implements OrderService {
 			return orderId;
 		}
 
+		return null;
+	}
+
+	public Object updateOrderStatus(String status, Long orderId) {
+		if(ordersRepository.findById(orderId).isPresent()) {
+			Orders order = ordersRepository.findById(orderId).get();
+			System.out.println(status);
+			
+			if (status.equals("NEW"))
+				order.setStatus(NEW);
+
+			if (status.equals("APPROVED"))
+				order.setStatus(APPROVED);
+
+			if (status.equals("FULLFILLED"))
+				order.setStatus(FULLFILLED);
+
+			if (status.equals("REJECTED"))
+				order.setStatus(REJECTED);
+
+			System.out.println(order);
+			return ordersRepository.save(order);
+		}
 		return null;
 	}
 

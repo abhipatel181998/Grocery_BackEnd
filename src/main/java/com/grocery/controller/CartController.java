@@ -20,7 +20,7 @@ import com.grocery.service.CartService;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/api")
 @Log4j2
 public class CartController {
 	@Autowired
@@ -29,7 +29,7 @@ public class CartController {
 	/**
 	 * @return all the carts.
 	 */
-	@GetMapping("")
+	@GetMapping("/cart")
 	public ResponseEntity<?> getCart() {
 		try {
 			log.info("Get All Cart Accessed.");
@@ -44,7 +44,7 @@ public class CartController {
 	 * @param cartId
 	 * @return Cart object found by cartId.
 	 */
-	@GetMapping("/{id}")
+	@GetMapping("/cart/{id}")
 	public ResponseEntity<?> getCartById(@PathVariable(name = "id", required = true) Long cartId) {
 		try {
 			Optional<Cart> cart = cartService.getCartById(cartId);
@@ -68,7 +68,7 @@ public class CartController {
 	 * @param cart
 	 * @return HttpStatus with with cart object or error message.
 	 */
-	@PostMapping("/add")
+	@PostMapping("/cart")
 	public ResponseEntity<?> addCart(@RequestBody Cart cart) {
 		try {
 			var response = cartService.addCart(cart);
@@ -88,7 +88,7 @@ public class CartController {
 	 * @param caartId
 	 * @return HttpStatus with with cart object or error message.
 	 */
-	@PutMapping("/update/{id}")
+	@PutMapping("/cart/{id}")
 	public ResponseEntity<?> updateCart(@RequestBody Cart cart,
 			@PathVariable(name = "id", required = true) Long cartId) {
 
@@ -114,7 +114,7 @@ public class CartController {
 	 * @param cartId
 	 * @return HttpStatus with with cart id or error message.
 	 */
-	@DeleteMapping("/delete/{id}")
+	@DeleteMapping("/cart/{id}")
 	public ResponseEntity<?> deleteCart(@PathVariable(name = "id", required = true) Long cartId) {
 
 		try {

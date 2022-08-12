@@ -41,6 +41,9 @@ public class CartServiceImp implements CartService {
 	 * @return saved Cart object.
 	 */
 	public Cart addCart(Cart cart) {
+		if(cartRepository.findByUser(cart.getUser()) != null) {
+			Optional<Cart> cartData = cartRepository.findByUser(cart.getUser());
+		}
 		return cartRepository.save(cart);
 	}
 

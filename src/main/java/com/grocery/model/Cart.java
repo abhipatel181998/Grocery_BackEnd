@@ -26,7 +26,7 @@ public class Cart {
 	private Long cartId;
 
 	@Column(nullable = false)
-	private int quantity = 0;
+	private int quantity = 1;
 
 	@OneToOne
 	private User user;

@@ -18,4 +18,6 @@ public interface OrderService {
 	public Orders updateOrder(Orders order, Long orderId);
 
 	public Object deleteOrder(Long orderId);
+
+	public Object updateOrderStatus(String status, Long orderId);
 }

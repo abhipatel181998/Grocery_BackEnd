@@ -12,11 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.grocery.model.Orders;
-import com.grocery.service.OrdersServiceImp;
+import com.grocery.service.OrderService;
 
+import lombok.Data;
 import lombok.extern.log4j.Log4j2;
 
 @RestController
@@ -25,7 +27,7 @@ import lombok.extern.log4j.Log4j2;
 public class OrdersController {
 
 	@Autowired
-	OrdersServiceImp ordersService;
+	OrderService ordersService;
 
 	/**
 	 * @return all the orders.
@@ -109,6 +111,28 @@ public class OrdersController {
 
 	}
 
+	@PutMapping("/order/updateStatus/{id}")
+	public ResponseEntity<?> updateOrderStatus(@RequestBody Status status,
+			@PathVariable(name = "id", required = true) Long orderId) {
+
+		try {
+			System.out.println(status.getStatus());
+			var response = ordersService.updateOrderStatus(status.getStatus(), orderId);
+			log.info("Order Status updated: " + response);
+
+			return new ResponseEntity<>(response, HttpStatus.OK);
+
+		} catch (NullPointerException ne) {
+			log.error("Order not found for id: " + orderId);
+			return new ResponseEntity<>("Order not found!", HttpStatus.NOT_FOUND);
+		} catch (Exception e) {
+			log.error(e);
+			return new ResponseEntity<>("Error occcured while updating order status.",
+					HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+
+	}
+
 	/**
 	 * Update order in the database.
 	 * 
@@ -134,4 +158,9 @@ public class OrdersController {
 		}
 
 	}
+}
+
+@Data
+class Status{
+	private String status;
 }

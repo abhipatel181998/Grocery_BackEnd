@@ -20,29 +20,32 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Orders {
-	
-	public static enum status{
-		NEW, PENDING, INPROGRESS, FINISHED
+
+	public static enum status {
+		NEW, APPROVED, FULLFILLED, REJECTED
 	}
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "order_id")
 	private Long orderId;
-	
+
 	@Column(nullable = false)
 	private String address;
-	
-	@Column(name = "order_date" ,nullable = false)
+
+	@Column(name = "order_date", nullable = false)
 	private Date orderDate;
-	
+
+	@Column(nullable = false)
+	private double total = 0;
+
 	@Column(nullable = false)
 	private status status = this.status.NEW;
-	
+
 	@ManyToOne
 	private User user;
-	
+
 	@OneToMany
 	private List<Item> items;
-	
+
 }
