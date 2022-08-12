@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.grocery.model.Wishlist;
+import com.grocery.repository.ItemRepository;
 import com.grocery.repository.WishlistRepository;
 
 @Component
@@ -14,6 +15,9 @@ public class WishlistServiceImp implements WishlistService {
 
 	@Autowired
 	WishlistRepository wishlistRepository;
+
+	@Autowired
+	ItemRepository itemRepository;
 
 	/**
 	 * Get all the wishlists.
@@ -42,13 +46,12 @@ public class WishlistServiceImp implements WishlistService {
 	 */
 	public Wishlist addWishlist(Wishlist wishlist) {
 		Optional<Wishlist> wishlistData = wishlistRepository.findByUser(wishlist.getUser());
-		if(wishlistData.isPresent()) {
+		if (wishlistData.isPresent()) {
 			(wishlistData.get().getItem()).add(wishlist.getItem().get(0));
 			return wishlistRepository.save(wishlistData.get());
 		}
 		return wishlistRepository.save(wishlist);
 	}
-
 
 	/**
 	 * Delete wishlist by id.
@@ -56,12 +59,12 @@ public class WishlistServiceImp implements WishlistService {
 	 * @param wishlistId
 	 * @return deleted wishlist's id or null
 	 */
-	public Object deleteWishlist(Long wishlistId, Long itemId ) {
+	public Object deleteWishlist(Long wishlistId, Long itemId) {
 		Optional<Wishlist> wishlistData = wishlistRepository.findById(wishlistId);
 
 		if (wishlistData.isPresent()) {
-			wishlistRepository.deleteById(wishlistId);
-			return wishlistId;
+			(wishlistData.get().getItem()).remove(itemRepository.findById(itemId).get());
+			return wishlistRepository.save(wishlistData.get());
 		}
 
 		return null;

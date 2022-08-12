@@ -83,7 +83,6 @@ public class WishlistController {
 
 	}
 
-
 	/**
 	 * Delete item from wishlist in the database.
 	 * 
@@ -91,16 +90,17 @@ public class WishlistController {
 	 * @return HttpStatus with with wishlist id or error message.
 	 */
 	@DeleteMapping("/wishlist")
-	public ResponseEntity<?> deleteWishlist(@RequestBody DeleteWishlist deleteWishlist) {
-
+	public ResponseEntity<?> deleteWishlist(@RequestBody Wishlist wishlist) {
+		System.out.println(wishlist);
 		try {
-			var response = wishlistService.deleteWishlist(wishlistId);
-			log.info("Wishlist deleted with id: " + response);
+			var response = wishlistService.deleteWishlist(wishlist.getWishlistId(),
+					wishlist.getItem().get(0).getItemId());
+			log.info("Item removed from wishlist deleted with id: " + response);
 
 			if (response != null)
 				return new ResponseEntity<>(response, HttpStatus.OK);
 			else {
-				log.error("Wishlist not found for id: " + wishlistId);
+				log.error("Wishlist not found for id: " + wishlist);
 				return new ResponseEntity<>("Wishlist not found!", HttpStatus.NOT_FOUND);
 			}
 		} catch (Exception e) {
@@ -109,10 +109,4 @@ public class WishlistController {
 		}
 
 	}
-}
-
-@Data
-class DeleteWishlist{
-	Long wishlistId;
-	Long itemId;
 }
