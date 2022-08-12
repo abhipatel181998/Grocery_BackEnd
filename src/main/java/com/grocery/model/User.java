@@ -22,7 +22,7 @@ import lombok.NoArgsConstructor;
 public class User {
 	
 	public static enum Gender{
-		MALE, FEMELE
+		MALE, FEMALE
 	}
 	
 	@Id
